@@ -16,3 +16,8 @@ Use this as a starting point to complete the WDD 231 personal activity. We will 
 ## Other commands
 
 - `npm run build` to build final files when you are ready to turn in.
+
+## Netlify URL
+- enchanting-taiyaki-cedc82.netlify.app
+- enchanting-taiyaki-cedc82
+- https://app.netlify.com/sites/enchanting-taiyaki-cedc82/deploys/680a9616d0619a56729ac00f
