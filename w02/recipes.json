@@ -1,5 +1,5 @@
 {
-    "name":"Chocoalte Chip Cookies", 
+    "name":"Chocolate Chip Cookies", 
     "ingredients":
     [
         {
@@ -43,14 +43,18 @@
             "ingredient" : "salt"
         },
         {
-            "unit" : "cup",
-            "quantity" : 5,
-            "ingredient" : "flour"
+            "name": "flour",
+            "amounts": {
+                "amount": "5",
+                "unit": "cups"
+            },
+            "notes": "we like 3 C white and 2 C whole wheat"
         },
-
-    5 C flour (we like 3 C white and 2 C whole wheat)
-    2 C semi-sweet chocolate chips
-    1-2 C shredded coconut
+        {
+            "unit" : "cup",
+            "quantity" : 1.5,
+            "ingredient" : "shredded coconut"
+        }
 ],
 "instructions":[
     "Cream the butter and sugar together, then beat in the eggs and vanilla",
