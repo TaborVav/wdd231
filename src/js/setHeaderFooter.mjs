@@ -1,5 +1,8 @@
 
-export function setHeaderInfo(data) {
+import {parkInfoTemplate} from "./templates.mjs";
+
+
+function setHeaderInfo(data) {
     // insert data into disclaimer section
     const disclaimer = document.querySelector(".disclaimer > a");
     disclaimer.href = data.url;
@@ -13,15 +16,45 @@ export function setHeaderInfo(data) {
       parkInfoTemplate(data);
   }
 
+  function getMailingAddress(addresses) {
+    const mailing = addresses.find((address) => address.type === "Mailing");
+    return mailing;
+  }
+  
+  
+  function getVoicePhone(numbers) {
+    const voice = numbers.find((number) => number.type === "Voice");
+    return voice.phoneNumber;
+  }
+  
+  
+  function footerTemplate(info) {
+    const mailing = getMailingAddress(info.addresses);
+    const voice = getVoicePhone(info.contacts.phoneNumbers);
+  
+    return `
+      <section class="contact">
+        <h3>Contact Info</h3>
+        <h4>Mailing Address:</h4>
+        <div>
+          <p>${mailing.line1}</p>
+          <p>${mailing.city}, ${mailing.stateCode} ${mailing.postalCode}</p>
+        </div>
+        <h4>Phone:</h4>
+        <p>${voice}</p>
+      </section>
+    `;
+  }
+
   
 
-export function setFooter(data) {
+function setFooter(data) {
     const footerEl = document.querySelector("#park-footer");
     footerEl.innerHTML = footerTemplate(data);
   }
 
 
-//   export default function setHeaderFooter(data) {
-//     setHeaderInfo(data);
-//     setFooter(data);
-//   }
+  export default function setHeaderFooter(data) {
+    setHeaderInfo(data);
+    setFooter(data);
+  }
