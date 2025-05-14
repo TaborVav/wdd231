@@ -3,9 +3,20 @@ console.log("JS is running");
 
 import { getParkData, parkInfoLinks } from "./parkService.mjs";
 import { mediaCardTemplate } from "./templates.mjs";
-import { setHeaderFooter } from "./setHeaderFooter.mjs";
+import  setHeaderFooter  from "./setHeaderFooter.mjs";
+import { getInfoLinks } from './parkService.mjs';  
 
-const parkData = getParkData();
+
+async function init() {
+  const parkData = await getParkData();
+  const links = getInfoLinks(parkData.images);
+  setHeaderFooter(parkData);
+  setParkIntro(parkData);
+  setParkInfoLinks(links);
+}
+
+init();  // Initialize the app
+
 
 // ------------------------------
 // ----- In templates.mjs ------
@@ -92,8 +103,10 @@ function setParkIntro(data) {
 // 4
 function setParkInfoLinks(data) {
   const infoEl = document.querySelector(".info");
+  // we have multiple links to build...so we map to transform the array of objects into an array of HTML strings.
   const html = data.map(mediaCardTemplate);
-  infoEl.innerHTML = html.join("");
+  // join the array of strings into one string and insert it into the section
+  infoEl.insertAdjacentHTML("afterbegin", html.join(""));
 }
 
 
@@ -137,10 +150,11 @@ function setParkInfoLinks(data) {
 // ------------------------------
 
 
-
-setHeaderFooter(parkData);
-setParkIntro(parkData);
-setParkInfoLinks(parkInfoLinks);
+// -------
+// setHeaderFooter(parkData);
+// setParkIntro(parkData);
+// setParkInfoLinks(parkInfoLinks);
+// -------
 // setFooter(parkData);
 
 // setHeaderInfo(parkData);

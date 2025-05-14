@@ -1,0 +1,27 @@
+footer h3{
+  font-family: var(--bs-font-serif);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+footer h4{
+  font-weight: 600;
+}
+
+footer p{
+margin: 7px;
+}
+
+footer{
+  background-color: #253127;
+  padding: 10px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  
+}
+
+#park-footer {
+  background-image: url('/images/topo_pattern.png');
+  background-size: cover;        
+  background-position: center;    
+}

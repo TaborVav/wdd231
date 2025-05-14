@@ -1,0 +1,9 @@
+main h1 {
+    font-family: var(--bs-font-serif);
+    padding: 15px 10px 10px 10px;
+    font-weight: 550;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+ 
