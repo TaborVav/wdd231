@@ -1,4 +1,7 @@
 
+import "../css/style.css";
+import "../css/conditions.css";
+
 import { getVisitorCenterData, getParkData, getParkAlerts } from "./parkService.mjs";
 import { alertTemplate, visitorCenterTemplate } from "./templates.mjs";
 import setHeaderFooter from "./setHeaderFooter.mjs";
@@ -26,7 +29,20 @@ async function init() {
     setHeaderFooter(parkData);
     setAlerts(alerts);
     setVisitorCenters(visitorCenters);
+    setActivities(parkData.activities);
   }
+  
+
+  import { activityTemplate } from "./templates.mjs";
+
+  function setActivities(activities) {
+    const activitiesContainer = document.querySelector(".activities ul");
+    activitiesContainer.innerHTML = "";
+    const html = activities.map(activityTemplate);
+    activitiesContainer.insertAdjacentHTML("beforeend", html.join(""));
+  }
+  
+
   
   init();
   

@@ -1,4 +1,7 @@
 
+import "../css/style.css";
+import "../css/partials/home.css";
+
 console.log("JS is running");
 
 import { getParkData, parkInfoLinks } from "./parkService.mjs";

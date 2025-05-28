@@ -1,3 +1,4 @@
+import spritePath from '../images/sprite.symbol.svg'; // Vite will track this path
 
 
 export function mediaCardTemplate(info) {
@@ -24,6 +25,7 @@ export function mediaCardTemplate(info) {
   
   export function alertTemplate(alert) {
     let alertType = "";
+  
     switch (alert.category) {
       case "Park Closure":
         alertType = "closure";
@@ -31,9 +33,10 @@ export function mediaCardTemplate(info) {
       default:
         alertType = alert.category.toLowerCase();
     }
+  
     return `<li class="alert">
       <svg class="icon" focusable="false" aria-hidden="true">
-        <use xlink:href="/images/sprite.symbol.svg#alert-${alertType}"></use>
+        <use xlink:href="${spritePath}#alert-${alertType}"></use>  
       </svg>
       <div>
         <h3 class="alert-${alertType}">${alert.title}</h3>
@@ -41,6 +44,7 @@ export function mediaCardTemplate(info) {
       </div>
     </li>`;
   }
+  
 
   
   export function visitorCenterTemplate(center) {
@@ -53,3 +57,7 @@ export function mediaCardTemplate(info) {
     `;
   }
   
+
+  export function activityTemplate(activity) {
+  return `<li>${activity.name}</li>`;
+}
