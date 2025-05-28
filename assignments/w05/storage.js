@@ -60,6 +60,79 @@ function manageTasks(e) {
   }
 }
 
+// ======= Section 1 ========
+
+function setUserName() {
+  const name = localStorage.getItem("todo-user");
+  if (name) {
+    document.querySelector(".user").innerText = name;
+  }
+}
+function userNameHandler() {
+  const name = document.querySelector("#user").value;
+  localStorage.setItem("todo-user", name);
+  setUserName();
+}
+
+document
+  .querySelector("#userNameButton")
+  .addEventListener("click", userNameHandler);
+
+  // check to see if a user name has been set...if yes then set it in the header
+setUserName();
+
+// ======= Section 2 ========
+
+function setLocalStorage(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
+}
+
+function getLocalStorage(key) {
+  const data = localStorage.getItem(key);
+  return data ? JSON.parse(data) : null;
+}
+
+function newTask() {
+  const task = document.querySelector("#todo").value;
+  tasks.push({ detail: task, completed: false });
+  setLocalStorage("tasks", tasks); // Save tasks
+  renderTasks(tasks);
+}
+
+function removeTask(taskElement) {
+  tasks = tasks.filter(
+    (task) => task.detail != taskElement.querySelector('p').innerText
+  );
+  setLocalStorage("tasks", tasks); // Save after remove
+  taskElement.remove();
+}
+
+function completeTask(taskElement) {
+  const taskIndex = tasks.findIndex(
+    (task) => task.detail === taskElement.querySelector('p').innerText
+  );
+  tasks[taskIndex].completed = !tasks[taskIndex].completed;
+  setLocalStorage("tasks", tasks); // Save after complete
+  taskElement.classList.toggle("strike");
+}
+
+function init() {
+  setUserName(); // Load saved username
+
+  // Load tasks if they exist
+  const savedTasks = getLocalStorage("tasks");
+  if (savedTasks) {
+    tasks = savedTasks;
+    renderTasks(tasks);
+  }
+}
+
+init(); // Call init when the page loads
+
+
+
+// ===========================
+
 // Add your event listeners here
 document.querySelector("#submitTask").addEventListener("click", newTask);
 document.querySelector("#todoList").addEventListener("click", manageTasks);
