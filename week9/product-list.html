@@ -1,12 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Dental Care Store</title>
-</head>
-<body>
-    <h1>Just testing
-    </h1>
-</body>
+    <link rel="stylesheet" href="styles.css"/>
+
+  </head>
+  <body>
+    <h1>Our Products</h1>
+    <ul id="product-list"></ul>
+
+    <script>
+      async function loadProducts() {
+        try {
+          const response = await fetch("dental.json");
+          const products = await response.json();
+
+          const list = document.getElementById("product-list");
+
+          // loop through each product and add a <li>
+          products.forEach((product) => {
+            const item = document.createElement("li");
+            const link = document.createElement("a");
+
+            link.href = `product-details.html?id=${product.id}`;
+            link.textContent = product.name;
+
+            item.appendChild(link);
+            list.appendChild(item);
+          });
+        } catch (err) {
+          console.error("Error loading product data:", err);
+        }
+      }
+
+      loadProducts();
+    </script>
+  </body>
 </html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Product Details</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1 id="product-name">Loading...</h1>
+    <img id="product-image" alt="" width="400" />
+    <p id="product-description"></p>
+    <p id="product-price"></p>
+
+    <!-- Overlay container -->
+    <div id="overlay" class="overlay" aria-hidden="false">
+      <div
+        class="overlay-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="overlay-title"
+      >
+        <h2 id="overlay-title">Join Our Newsletter</h2>
+        <p>Sign up to receive special offers and updates!</p>
+        <input type="email" id="email-input" placeholder="Enter your email" />
+        <button id="sign-up-btn">Sign Up Now</button>
+      </div>
+    </div>
+
+    <script>
+      async function loadProductDetails() {
+        const params = new URLSearchParams(window.location.search);
+        const productId = parseInt(params.get("id"));
+
+        try {
+          const response = await fetch("dental.json");
+          const products = await response.json();
+
+          // Find the product with the matching ID
+          const product = products.find((p) => p.id === productId);
+
+          if (product) {
+            // Update the page with product details
+            document.getElementById("product-name").textContent = product.name;
+            const img = document.getElementById("product-image");
+            img.src = product.imageUrl;
+            img.alt = product.name;
+
+            document.getElementById("product-description").textContent =
+              product.description;
+            document.getElementById(
+              "product-price"
+            ).textContent = `$${product.price.toFixed(2)}`;
+          } else {
+            // If no product found for that ID
+            document.getElementById("product-name").textContent =
+              "Product not found.";
+          }
+        } catch (error) {
+          console.error("Error loading product details:", error);
+        }
+      }
+
+      loadProductDetails();
+
+      // ==== Grab overlay elements ====
+      const overlay = document.getElementById("overlay");
+      const signUpBtn = document.getElementById("sign-up-btn");
+      const emailInput = document.getElementById("email-input");
+
+      function closeOverlay() {
+        overlay.classList.add("hidden"); // Hide overlay visually
+        overlay.setAttribute("aria-hidden", "true"); // Update accessibility
+      }
+
+      // ==== Close overlay on ESC key press ====
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !overlay.classList.contains("hidden")) {
+          closeOverlay();
+        }
+      });
+
+      // ==== Close overlay on click outside the overlay-content box ====
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) {
+          closeOverlay();
+        }
+      });
+
+      // ==== Sign Up button click: validate email, then close or alert ====
+      signUpBtn.addEventListener("click", () => {
+        if (emailInput.value.trim() === "") {
+          alert("Please enter an email address.");
+          emailInput.focus();
+        } else {
+          closeOverlay();
+          alert("Thank you for signing up!");
+        }
+      });
+    </script>
+  </body>
+</html>
